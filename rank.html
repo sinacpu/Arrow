@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Gang | سیستم رنک‌ها</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --teal: #04baae; --teal-dark: #038f85;
+            --teal-glow: rgba(4,186,174,0.25); --teal-glow2: rgba(4,186,174,0.08);
+            --gold: #f5c842; --purple: #c77dff; --blue: #66ccff;
+            --bg: #070c0b; --bg2: #0d1614; --bg3: #111a18;
+            --border: rgba(4,186,174,0.18); --text: #d8e8e6; --muted: #7a9490;
+        }
+
+        body { font-family: 'Vazirmatn', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; opacity: 0.4;
+        }
+
+        .navbar {
+            position: sticky; top: 0; z-index: 500;
+            background: rgba(7,12,11,0.92); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border); padding: 0 2.5rem;
+            display: flex; justify-content: space-between; align-items: center; height: 68px;
+        }
+
+        .logo { font-family: 'Oswald', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 4px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo .arrow-sym { color: var(--teal); font-size: 1.8rem; text-shadow: 0 0 12px var(--teal); animation: pulse-logo 3s ease-in-out infinite; }
+        @keyframes pulse-logo { 0%,100%{text-shadow:0 0 10px var(--teal)} 50%{text-shadow:0 0 22px var(--teal),0 0 40px var(--teal-glow)} }
+        .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; letter-spacing: 1px; padding: 0.45rem 1rem; border-radius: 6px; transition: all 0.2s; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--teal); background: var(--teal-glow2); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 20px; height: 2px; background: var(--teal); border-radius: 2px; }
+
+        .page-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+        .page-header::before { content: 'RANKS'; position: absolute; font-family: 'Oswald', sans-serif; font-size: clamp(5rem, 18vw, 14rem); font-weight: 700; color: transparent; -webkit-text-stroke: 1px rgba(4,186,174,0.05); left: 50%; bottom: -1rem; transform: translateX(-50%); white-space: nowrap; letter-spacing: 8px; }
+        .page-label { font-size: 0.7rem; letter-spacing: 4px; color: var(--teal); font-weight: 600; text-transform: uppercase; margin-bottom: 0.6rem; position: relative; }
+        .page-title { font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: 3px; color: #fff; position: relative; }
+        .page-title span { color: var(--teal); }
+
+        /* TWO-COLUMN LAYOUT */
+        .rank-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        @media(max-width: 860px) { .rank-layout { grid-template-columns: 1fr; } }
+
+        .col-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem; letter-spacing: 3px; color: var(--teal);
+            text-transform: uppercase; margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+        }
+
+        /* RANK ITEMS */
+        .rank-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+        .rank-item {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.9rem 1.2rem;
+            display: flex; align-items: center; gap: 1rem;
+            transition: all 0.25s;
+            cursor: default;
+        }
+
+        .rank-item:hover { border-color: rgba(4,186,174,0.4); transform: translateX(-6px); background: #141f1d; }
+
+        .rank-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem; letter-spacing: 1px; color: var(--muted);
+            min-width: 32px; text-align: center;
+        }
+
+        .rank-icon { font-size: 1.4rem; min-width: 32px; text-align: center; }
+
+        .rank-info { flex: 1; }
+
+        .rank-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; font-weight: 600; letter-spacing: 1px;
+        }
+
+        .rank-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+        .rank-badge {
+            font-size: 0.65rem; letter-spacing: 1.5px;
+            background: var(--teal-glow2); border: 1px solid var(--border);
+            color: var(--teal); padding: 0.15rem 0.7rem; border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        /* Special rank colors */
+        .rank-item.is-leader .rank-name { color: var(--gold); }
+        .rank-item.is-manager .rank-name { color: var(--blue); }
+        .rank-item.is-master .rank-name { color: var(--purple); }
+        .rank-item.is-dark .rank-name { color: var(--teal); text-shadow: 0 0 8px var(--teal-glow); }
+
+        /* RANKUP TABLE */
+        .rankup-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+        .rankup-item {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-right: 2px solid var(--teal);
+            border-radius: 10px;
+            padding: 0.85rem 1.2rem;
+            display: flex; align-items: center; gap: 0.7rem;
+            font-size: 0.85rem;
+            transition: all 0.25s;
+        }
+
+        .rankup-item:hover { background: #141f1d; transform: translateX(-4px); }
+
+        .rankup-from { color: var(--teal); font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
+        .rankup-arrow-icon { color: var(--muted); font-size: 0.8rem; }
+        .rankup-to { color: var(--gold); font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
+        .rankup-spacer { flex: 1; }
+        .rankup-pts {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem; color: #fff; white-space: nowrap;
+        }
+        .rankup-cd { font-size: 0.7rem; color: var(--muted); margin-right: 0.5rem; white-space: nowrap; }
+
+        footer { background: #030504; border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+        .footer-logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; letter-spacing: 4px; color: var(--teal); margin-bottom: 0.5rem; }
+        .footer-sub { font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; }
+
+        @media(max-width:700px){
+            .navbar{padding:0 1.2rem}
+            .nav-links a{padding:0.4rem 0.6rem;font-size:0.78rem}
+            .rankup-item{flex-wrap:wrap}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo"><span class="arrow-sym">➹</span> ARROW GANG</a>
+    <ul class="nav-links">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="members.html">اعضا</a></li>
+        <li><a href="rank.html" class="active">رنک‌ها</a></li>
+        <li><a href="point.html">پوینت</a></li>
+        <li><a href="index.html#contact">ارتباط</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <p class="page-label">مسیر افتخار</p>
+    <h1 class="page-title">سیستم <span>رنک‌ها</span></h1>
+</div>
+
+<div class="rank-layout">
+
+    <!-- LEFT COL: Rank List -->
+    <div>
+        <div class="col-title">سطوح رنک</div>
+        <div class="rank-list">
+            <div class="rank-item"><div class="rank-num">LV1</div><div class="rank-icon">🌱</div><div class="rank-info"><div class="rank-name">AW Rookie</div><div class="rank-sub">تازه‌وارد | شروع راه</div></div><div class="rank-badge">سطح ۱</div></div>
+            <div class="rank-item"><div class="rank-num">LV2</div><div class="rank-icon">🔰</div><div class="rank-info"><div class="rank-name">AW Member</div><div class="rank-sub">عضویت رسمی در گنگ</div></div><div class="rank-badge">سطح ۲</div></div>
+            <div class="rank-item"><div class="rank-num">LV3</div><div class="rank-icon">⚔️</div><div class="rank-info"><div class="rank-name">AW Soldier</div><div class="rank-sub">سرباز گنگ | آماده مأموریت</div></div><div class="rank-badge">سطح ۳</div></div>
+            <div class="rank-item"><div class="rank-num">LV4</div><div class="rank-icon">🎖️</div><div class="rank-info"><div class="rank-name">AW Veteran</div><div class="rank-sub">کهنه‌سرباز | باتجربه</div></div><div class="rank-badge">سطح ۴</div></div>
+            <div class="rank-item"><div class="rank-num">LV5</div><div class="rank-icon">🔫</div><div class="rank-info"><div class="rank-name">AW Gunner</div><div class="rank-sub">تیرانداز اصلی | قدرت آتش</div></div><div class="rank-badge">سطح ۵</div></div>
+            <div class="rank-item is-dark"><div class="rank-num">LV6</div><div class="rank-icon">🌑</div><div class="rank-info"><div class="rank-name">Dark Arrow</div><div class="rank-sub">تیر تاریک | نخبگان ویژه</div></div><div class="rank-badge">سطح ۶</div></div>
+            <div class="rank-item"><div class="rank-num">LV7</div><div class="rank-icon">💎</div><div class="rank-info"><div class="rank-name">AW Elite</div><div class="rank-sub">نخبه گنگ | ۱۰٪ برتر</div></div><div class="rank-badge">سطح ۷</div></div>
+            <div class="rank-item"><div class="rank-num">LV8</div><div class="rank-icon">👻</div><div class="rank-info"><div class="rank-name">AW Ghost</div><div class="rank-sub">شبح | نامرئی و مرگبار</div></div><div class="rank-badge">سطح ۸</div></div>
+            <div class="rank-item is-master"><div class="rank-num">LV9</div><div class="rank-icon">👑</div><div class="rank-info"><div class="rank-name">Master AW</div><div class="rank-sub">استاد مطلق گنگ</div></div><div class="rank-badge">سطح ۹</div></div>
+            <div class="rank-item is-manager"><div class="rank-num">—</div><div class="rank-icon">📋</div><div class="rank-info"><div class="rank-name">Manager</div><div class="rank-sub">مدیریت | هماهنگی عملیات</div></div><div class="rank-badge">مدیریت</div></div>
+            <div class="rank-item is-leader"><div class="rank-num">—</div><div class="rank-icon">⭐</div><div class="rank-info"><div class="rank-name">Leader</div><div class="rank-sub">فرمانده گنگ | بالاترین مقام</div></div><div class="rank-badge">فرماندهی</div></div>
+        </div>
+    </div>
+
+    <!-- RIGHT COL: Rankup -->
+    <div>
+        <div class="col-title">شرایط رنک آپ</div>
+        <div class="rankup-list">
+            <div class="rankup-item"><span class="rankup-from">Rookie</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Member</span><span class="rankup-spacer"></span><span class="rankup-cd">3 روز</span><span class="rankup-pts">5 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Member</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Soldier</span><span class="rankup-spacer"></span><span class="rankup-cd">4 روز</span><span class="rankup-pts">15 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Soldier</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Veteran</span><span class="rankup-spacer"></span><span class="rankup-cd">5 روز</span><span class="rankup-pts">20 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Veteran</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Gunner</span><span class="rankup-spacer"></span><span class="rankup-cd">7 روز</span><span class="rankup-pts">20 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Gunner</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Dark Arrow</span><span class="rankup-spacer"></span><span class="rankup-cd">7 روز</span><span class="rankup-pts">30 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Dark Arrow</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Elite</span><span class="rankup-spacer"></span><span class="rankup-cd">7 روز</span><span class="rankup-pts">35 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Elite</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Ghost</span><span class="rankup-spacer"></span><span class="rankup-cd">7 روز</span><span class="rankup-pts">45 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Ghost</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Master</span><span class="rankup-spacer"></span><span class="rankup-cd">10 روز</span><span class="rankup-pts">45 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Master</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Manager</span><span class="rankup-spacer"></span><span class="rankup-cd">10 روز</span><span class="rankup-pts">60 پوینت</span></div>
+            <div class="rankup-item"><span class="rankup-from">Manager</span><span class="rankup-arrow-icon">←</span><span class="rankup-to">Leader</span><span class="rankup-spacer"></span><span class="rankup-cd">10 روز</span><span class="rankup-pts">80 پوینت</span></div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-logo">➹ ARROW GANG</div>
+    <div class="footer-sub">رنک فقط یه تگ نیست، نشون‌دهنده تعهد توئه</div>
+</footer>
+
+<script type="text/javascript">
+  !function(){var i="4rtMsi",d=document,g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.type="text/javascript",g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}();
+</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Gang | اعضا</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --teal: #04baae;
+            --teal-dark: #038f85;
+            --teal-glow: rgba(4,186,174,0.25);
+            --teal-glow2: rgba(4,186,174,0.08);
+            --gold: #f5c842;
+            --bg: #070c0b;
+            --bg2: #0d1614;
+            --bg3: #111a18;
+            --border: rgba(4,186,174,0.18);
+            --text: #d8e8e6;
+            --muted: #7a9490;
+        }
+
+        body { font-family: 'Vazirmatn', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; opacity: 0.4;
+        }
+
+        .navbar {
+            position: sticky; top: 0; z-index: 500;
+            background: rgba(7,12,11,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2.5rem;
+            display: flex; justify-content: space-between; align-items: center; height: 68px;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 4px;
+            color: #fff; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .logo .arrow-sym {
+            color: var(--teal); font-size: 1.8rem; text-shadow: 0 0 12px var(--teal);
+            animation: pulse-logo 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-logo { 0%,100%{text-shadow:0 0 10px var(--teal)} 50%{text-shadow:0 0 22px var(--teal),0 0 40px var(--teal-glow)} }
+
+        .nav-links { display: flex; gap: 0.2rem; list-style: none; }
+
+        .nav-links a {
+            color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 600;
+            letter-spacing: 1px; padding: 0.45rem 1rem; border-radius: 6px; transition: all 0.2s; position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--teal); background: var(--teal-glow2); }
+
+        .nav-links a.active::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 20px; height: 2px; background: var(--teal); border-radius: 2px;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: 'MEMBERS';
+            position: absolute;
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(5rem, 18vw, 14rem);
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(4,186,174,0.05);
+            left: 50%; bottom: -1rem;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            letter-spacing: 8px;
+        }
+
+        .page-label {
+            font-size: 0.7rem; letter-spacing: 4px; color: var(--teal); font-weight: 600;
+            text-transform: uppercase; margin-bottom: 0.6rem; position: relative;
+        }
+
+        .page-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700; letter-spacing: 3px; color: #fff; position: relative;
+        }
+
+        .page-title span { color: var(--teal); }
+
+        /* MEMBERS GRID */
+        .members-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .member-card {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease both;
+        }
+
+        .member-card:nth-child(1){animation-delay:0.05s}
+        .member-card:nth-child(2){animation-delay:0.1s}
+        .member-card:nth-child(3){animation-delay:0.15s}
+        .member-card:nth-child(4){animation-delay:0.2s}
+        .member-card:nth-child(5){animation-delay:0.25s}
+
+        .member-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, var(--teal-glow2), transparent);
+            opacity: 0; transition: 0.3s;
+        }
+
+        .member-card:hover { transform: translateY(-10px); border-color: rgba(4,186,174,0.45); box-shadow: 0 20px 50px rgba(4,186,174,0.1); }
+        .member-card:hover::before { opacity: 1; }
+
+        .member-avatar {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--teal-dark), #02201d);
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.2rem;
+            position: relative; z-index: 1;
+            transition: 0.3s;
+        }
+
+        .member-card:hover .member-avatar {
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(4,186,174,0.3);
+        }
+
+        .member-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem; font-weight: 700;
+            color: #fff; margin-bottom: 0.5rem;
+            position: relative; z-index: 1;
+        }
+
+        .member-role {
+            display: inline-block;
+            font-size: 0.72rem; letter-spacing: 1.5px;
+            color: var(--teal);
+            background: var(--teal-glow2);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.9rem;
+            border-radius: 50px;
+            margin-bottom: 0.8rem;
+            position: relative; z-index: 1;
+        }
+
+        .member-bio {
+            font-size: 0.8rem; color: var(--muted);
+            position: relative; z-index: 1;
+        }
+
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+        footer {
+            background: #030504;
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 2rem; text-align: center;
+        }
+
+        .footer-logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; letter-spacing: 4px; color: var(--teal); margin-bottom: 0.5rem; }
+        .footer-sub { font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; }
+
+        @media(max-width:700px){
+            .navbar{padding:0 1.2rem}
+            .nav-links a{padding:0.4rem 0.6rem;font-size:0.78rem}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo"><span class="arrow-sym">➹</span> ARROW GANG</a>
+    <ul class="nav-links">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="members.html" class="active">اعضا</a></li>
+        <li><a href="rank.html">رنک‌ها</a></li>
+        <li><a href="point.html">پوینت</a></li>
+        <li><a href="index.html#contact">ارتباط</a></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+    <p class="page-label">خانواده Arrow</p>
+    <h1 class="page-title">اعضای <span>ARROW GANG</span></h1>
+</div>
+
+<main class="members-section">
+    <div class="members-grid">
+
+        <div class="member-card">
+            <div class="member-avatar">🏹</div>
+            <div class="member-name">طاها</div>
+            <div class="member-role">رزمنده تاکتیک</div>
+            <div class="member-bio">سایه گنگ، همیشه در خط مقدم</div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-avatar">⚡</div>
+            <div class="member-name">سبحان</div>
+            <div class="member-role">پشتیبانی سریع</div>
+            <div class="member-bio">سرعت و دقت، بازوی اجرایی گنگ</div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-avatar">🛡️</div>
+            <div class="member-name">متین</div>
+            <div class="member-role">مدافع استراتژیست</div>
+            <div class="member-bio">آنالیز و حفاظت از حریم گنگ</div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-avatar">🔥</div>
+            <div class="member-name">آریا</div>
+            <div class="member-role">اجرایی ارشد</div>
+            <div class="member-bio">انرژی و رهبری در عملیات‌ها</div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-avatar">🌙</div>
+            <div class="member-name">ماهان</div>
+            <div class="member-role">تاکتیک‌پرداز</div>
+            <div class="member-bio">برنامه‌ریزی و هماهنگی عملیات‌های گنگ</div>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <div class="footer-logo">➹ ARROW GANG</div>
+    <div class="footer-sub">تک‌تیر اشتباه نمی‌کند، اعضا پشت ماست</div>
+</footer>
+
+<script type="text/javascript">
+  !function(){var i="4rtMsi",d=document,g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.type="text/javascript",g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}();
+</script>
+</body>
+</html>
